@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BS1 - Motor Bolívar Digital 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C5A028;
+            --gold-light: #E8D48B;
+            --dark-blue: #1A2E4A;
+            --red: #C41E3A;
+            --cream: #F9F6EE;
+            --white: #FFFFFF;
+            --green: #16A34A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: var(--cream);
+            color: var(--dark-blue);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #2A4A6A 100%);
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+        }
+
+        .motor-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(197, 160, 40, 0.4); }
+            50% { box-shadow: 0 0 20px 10px rgba(197, 160, 40, 0.2); }
+        }
+
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 15px;
+        }
+
+        .logo-bcv {
+            width: 70px;
+            height: 70px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--gold);
+        }
+
+        .logo-bcv span {
+            color: var(--dark-blue);
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--white);
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .tagline {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 15px;
+            border: 1px solid var(--gold);
+        }
+
+        /* Evolución BCV Timeline */
+        .evolution-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .evolution-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .evolution-subtitle {
+            text-align: center;
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background: linear-gradient(90deg, #ccc 0%, var(--gold) 80%, var(--green) 100%);
+            border-radius: 2px;
+            transform: translateY(-50%);
+        }
+
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-item {
+            text-align: center;
+            flex: 1;
+            padding: 0 5px;
+        }
+
+        .timeline-dot {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .timeline-item:nth-last-child(-n+2) .timeline-dot {
+            border-color: var(--gold);
+            background: #FEF9E7;
+        }
+
+        .timeline-item:last-child .timeline-dot {
+            border-color: var(--green);
+            background: var(--green);
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 0 20px rgba(22, 163, 74, 0.4);
+        }
+
+        .timeline-item:last-child .timeline-dot span {
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--dark-blue);
+            margin-bottom: 3px;
+        }
+
+        .timeline-item:last-child .timeline-year {
+            color: var(--green);
+            font-size: 1rem;
+        }
+
+        .timeline-label {
+            font-size: 0.7rem;
+            color: #666;
+            line-height: 1.2;
+        }
+
+        .timeline-item:last-child .timeline-label {
+            color: var(--green);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Fases Section */
+        .phases-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .phase-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .phase-badge.paper {
+            background: #E5E7EB;
+            color: #374151;
+        }
+
+        .phase-badge.digital {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .phase-badge.future {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        /* Contexto Section */
+        .contexto {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-left: 6px solid var(--red);
+        }
+
+        .contexto h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--red);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contexto-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .contexto-item {
+            background: #FFF5F5;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .contexto-item .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .contexto-item h4 {
+            font-size: 0.95rem;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+        }
+
+        .contexto-item p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Alliance Section */
+        .alliance-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .alliance-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--dark-blue);
+            margin-bottom: 30px;
+        }
+
+        .alliance-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .partner-card {
+            background: linear-gradient(135deg, #F8F9FA 0%, #EDF2F7 100%);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .partner-card.bcv {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #2A4A6A 100%);
+            color: var(--white);
+        }
+
+        .partner-card.sirumatek {
+            background: linear-gradient(135deg, #1E3A5F 0%, #2D5A87 100%);
+            color: var(--white);
+        }
+
+        .partner-card.farben {
+            background: linear-gradient(135deg, #8B0000 0%, #CC0000 100%);
+            color: var(--white);
+        }
+
+        .partner-flag {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .partner-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .partner-card p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .partner-tags {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .partner-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+        }
+
+        .alliance-arrow {
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        /* Pillars Section */
+        .pillars-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            margin-bottom: 25px;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .pillar-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .pillar-header {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .pillar-card:nth-child(1) .pillar-header { background: linear-gradient(135deg, #C41E3A 0%, #E53E3E 100%); }
+        .pillar-card:nth-child(2) .pillar-header { background: linear-gradient(135deg, var(--gold) 0%, #D4AF37 100%); }
+        .pillar-card:nth-child(3) .pillar-header { background: linear-gradient(135deg, var(--dark-blue) 0%, #2A4A6A 100%); }
+
+        .pillar-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .pillar-header h3 {
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+        }
+
+        .pillar-body {
+            padding: 25px;
+        }
+
+        .component {
+            background: #F8F9FA;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid;
+        }
+
+        .pillar-card:nth-child(1) .component { border-left-color: var(--red); }
+        .pillar-card:nth-child(2) .component { border-left-color: var(--gold); }
+        .pillar-card:nth-child(3) .component { border-left-color: var(--dark-blue); }
+
+        .component h4 {
+            font-size: 1rem;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .component p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .component .highlight {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .component .highlight-gold {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* CTU Section */
+        .ctu-section {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #2A4A6A 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            color: var(--white);
+        }
+
+        .ctu-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .ctu-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .ctu-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .ctu-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .ctu-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .ctu-step {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .ctu-step .icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .ctu-step span {
+            display: block;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .ctu-step small {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .ctu-arrow {
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+
+        .ctu-benefits {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .ctu-benefit {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .ctu-benefit .check {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .ctu-benefit p {
+            font-size: 0.9rem;
+        }
+
+        /* SVG Container */
+        .svg-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .svg-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+        }
+
+        .svg-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .svg-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            font-size: 1rem;
+            color: var(--dark-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .pillars-grid { grid-template-columns: 1fr; }
+            .alliance-grid { grid-template-columns: 1fr; gap: 15px; }
+            .alliance-arrow { transform: rotate(90deg); }
+            .ctu-benefits { grid-template-columns: repeat(2, 1fr); }
+            .contexto-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline-items { flex-wrap: wrap; gap: 15px; }
+            .timeline-line { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 3rem; }
+            .ctu-flow { flex-direction: column; }
+            .ctu-arrow { transform: rotate(90deg); }
+            .contexto-grid { grid-template-columns: 1fr; }
+            .ctu-benefits { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="motor-badge">⚙️ MOTOR</div>
+            <div class="logo-row">
+                <div class="logo-bcv"><span>BCV</span></div>
+            </div>
+            <h1 class="main-title">BS1</h1>
+            <p class="subtitle">Bolívar Soberano Digital</p>
+            <span class="tagline">De la Defensa a la Soberanía Financiera — 2026</span>
+        </header>
+
+        <!-- Evolución del BCV -->
+        <section class="evolution-section">
+            <h2 class="evolution-title">📈 La Evolución del BCV Hacia la Inmediatez Digital</h2>
+            <p class="evolution-subtitle">Dos décadas de transformación tecnológica culminan en BS1</p>
+            
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-items">
+                    <div class="timeline-item">
+                        <div class="timeline-dot">📋</div>
+                        <div class="timeline-year">2006</div>
+                        <div class="timeline-label">Compensación<br>de Cheques</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">🏠</div>
+                        <div class="timeline-year">2007</div>
+                        <div class="timeline-label">Domiciliaciones</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">🖼️</div>
+                        <div class="timeline-year">2010</div>
+                        <div class="timeline-label">Cheque con<br>Imágenes</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">📄</div>
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-label">Cheque<br>Único</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">💳</div>
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-label">Crédito<br>Inmediato</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">⚡</div>
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-label">Pagos<br>Inmediatos</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">💰</div>
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-label">Débito<br>Inmediato</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">👆</div>
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-label">Tecnología<br>Biométrica</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">📶</div>
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-label">Tecnología<br>Contactless</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><span>BS1</span></div>
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-label">MOTOR<br>BOLÍVAR DIGITAL</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phases-row">
+                <span class="phase-badge paper">📑 Fase Papel/Documental (2006-2015)</span>
+                <span class="phase-badge digital">⚡ Fase Inmediatez Transaccional (2021-2025)</span>
+                <span class="phase-badge future">🚀 Fase Nuevas Tecnologías (2026+)</span>
+            </div>
+        </section>
+
+        <!-- Contexto: El Problema -->
+        <section class="contexto">
+            <h2>⚠️ El Desafío: ¿Por qué el Motor BS1?</h2>
+            <div class="contexto-grid">
+                <div class="contexto-item">
+                    <div class="icon">🚫</div>
+                    <h4>Sanciones</h4>
+                    <p>Aislamiento de mercados financieros globales y tecnologías críticas</p>
+                </div>
+                <div class="contexto-item">
+                    <div class="icon">🔗</div>
+                    <h4>Dependencia SWIFT</h4>
+                    <p>Vulnerabilidad en pagos internacionales controlados por EE.UU.</p>
+                </div>
+                <div class="contexto-item">
+                    <div class="icon">📊</div>
+                    <h4>Sin Control Central</h4>
+                    <p>98% de transacciones son digitales pero sin infraestructura soberana del BCV</p>
+                </div>
+                <div class="contexto-item">
+                    <div class="icon">⚙️</div>
+                    <h4>Sistemas Heredados</h4>
+                    <p>Infraestructura obsoleta limita innovación y seguridad</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alianza Estratégica -->
+        <section class="alliance-section">
+            <h2 class="alliance-title">🤝 Alianza Estratégica para la Ejecución del Motor BS1</h2>
+            <div class="alliance-grid">
+                <div class="partner-card bcv">
+                    <div class="partner-flag">🏛️</div>
+                    <h4>BCV</h4>
+                    <p>Liderazgo estratégico y visión para la soberanía económica</p>
+                    <div class="partner-tags">
+                        <span class="partner-tag">Regulador</span>
+                        <span class="partner-tag">Custodio</span>
+                    </div>
+                </div>
+                <div class="alliance-arrow">⟷</div>
+                <div class="partner-card sirumatek">
+                    <div class="partner-flag">🇻🇪</div>
+                    <h4>Sirumatek</h4>
+                    <p>Fábrica de software venezolana con experiencia en banca, tributos e infraestructura tecnológica</p>
+                    <div class="partner-tags">
+                        <span class="partner-tag">Marco Legal</span>
+                        <span class="partner-tag">App Financiera</span>
+                        <span class="partner-tag">SIGAT</span>
+                        <span class="partner-tag">Infraestructura</span>
+                    </div>
+                </div>
+                <div class="alliance-arrow">⟷</div>
+                <div class="partner-card farben">
+                    <div class="partner-flag">🇨🇳</div>
+                    <h4>Shenzhen Farben</h4>
+                    <p>+24,000 empleados, cotizada en bolsa, CMMI5, experiencia en banca global</p>
+                    <div class="partner-tags">
+                        <span class="partner-tag">FarPower</span>
+                        <span class="partner-tag">FarAI</span>
+                        <span class="partner-tag">$630M/año</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Los 3 Pilares -->
+        <section class="pillars-section">
+            <h2 class="section-title">🏛️ Los 3 Pilares del Motor Bolívar Digital</h2>
+            <div class="pillars-grid">
+                <!-- Pilar 1 -->
+                <div class="pillar-card">
+                    <div class="pillar-header">
+                        <div class="pillar-icon">🛡️</div>
+                        <h3>Pilar I: Resiliencia Financiera</h3>
+                    </div>
+                    <div class="pillar-body">
+                        <div class="component">
+                            <h4>☁️ BS1 Nube</h4>
+                            <p>Arquitectura nativa de nube con <span class="highlight">disponibilidad para creación de Fintechs</span></p>
+                        </div>
+                        <div class="component">
+                            <h4>🧠 BS1 Analítica</h4>
+                            <p>Big Data e IA para análisis predictivo en tiempo real</p>
+                        </div>
+                        <div class="component">
+                            <h4>🔧 BS1 Infraestructura</h4>
+                            <p>Migración de datos, seguridad perimetral, red actualizada</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pilar 2 -->
+                <div class="pillar-card">
+                    <div class="pillar-header">
+                        <div class="pillar-icon">🌉</div>
+                        <h3>Pilar II: Soberanía Financiera</h3>
+                    </div>
+                    <div class="pillar-body">
+                        <div class="component">
+                            <h4>🌐 BS1 Pasarela Internacional</h4>
+                            <p>Pago transfronterizo vía CIPS — <span class="highlight">Alternativo a SWIFT</span></p>
+                        </div>
+                        <div class="component">
+                            <h4>💴 BS1 Puente Yuan Digital</h4>
+                            <p>Conexión con el e-CNY del Banco Central de China</p>
+                        </div>
+                        <div class="component">
+                            <h4>⚖️ BS1 Marco Legal</h4>
+                            <p>Regulación de soberanía de datos, flujos y criptoactivos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pilar 3 -->
+                <div class="pillar-card">
+                    <div class="pillar-header">
+                        <div class="pillar-icon">👥</div>
+                        <h3>Pilar III: Inclusión y Sostenibilidad</h3>
+                    </div>
+                    <div class="pillar-body">
+                        <div class="component">
+                            <h4>📱 BS1 Billetera</h4>
+                            <p><span class="highlight-gold">Servicios de pagos masivos interconectados</span> para bancarización nacional</p>
+                        </div>
+                        <div class="component">
+                            <h4>🎓 BS1 Academia</h4>
+                            <p>Formación de talento clave: <span class="highlight">Ciberseguridad, Robótica, IA</span> para reducir dependencia tecnológica</p>
+                        </div>
+                        <div class="component">
+                            <h4>📜 BS1 Soberanía de Datos</h4>
+                            <p>Cláusulas contractuales para control nacional de información</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTU Section -->
+        <section class="ctu-section">
+            <div class="ctu-header">
+                <span class="ctu-badge">⚙️ MOTOR BS1 — PRODUCTO ESTRELLA</span>
+                <h2>Núcleo Transaccional Universal (CTU)</h2>
+                <p>Infraestructura de pagos operada por el BCV con <strong>servicios de pagos masivos interconectados</strong>. Las apps son solo interfaz — el usuario tiene UN SOLO bolsillo digital.</p>
+            </div>
+            <div class="ctu-flow">
+                <div class="ctu-step">
+                    <div class="icon">📱</div>
+                    <span>Apps</span>
+                    <small>Solo interfaz</small>
+                </div>
+                <div class="ctu-arrow">→</div>
+                <div class="ctu-step">
+                    <div class="icon">🔌</div>
+                    <span>BS1 Conexión</span>
+                    <small>API abierta</small>
+                </div>
+                <div class="ctu-arrow">→</div>
+                <div class="ctu-step" style="background: rgba(197,160,40,0.3);">
+                    <div class="icon">🏛️</div>
+                    <span>CTU - BCV</span>
+                    <small>Procesa</small>
+                </div>
+                <div class="ctu-arrow">→</div>
+                <div class="ctu-step">
+                    <div class="icon">🏦</div>
+                    <span>Banca</span>
+                    <small>Custodia</small>
+                </div>
+                <div class="ctu-arrow">→</div>
+                <div class="ctu-step">
+                    <div class="icon">🌐</div>
+                    <span>CIPS</span>
+                    <small>Internacional</small>
+                </div>
+                <div class="ctu-arrow">→</div>
+                <div class="ctu-step">
+                    <div class="icon">🔐</div>
+                    <span>BS1 Seguridad</span>
+                    <small>Protección</small>
+                </div>
+                <div class="ctu-arrow">→</div>
+                <div class="ctu-step" style="background: rgba(22,163,74,0.3);">
+                    <div class="icon">✅</div>
+                    <span>Usuario</span>
+                    <small>Protegido</small>
+                </div>
+            </div>
+            <div class="ctu-benefits">
+                <div class="ctu-benefit">
+                    <div class="check">✓</div>
+                    <p>Un saldo, múltiples apps</p>
+                </div>
+                <div class="ctu-benefit">
+                    <div class="check">✓</div>
+                    <p>Sin custodia privada</p>
+                </div>
+                <div class="ctu-benefit">
+                    <div class="check">✓</div>
+                    <p>Trazabilidad total BCV</p>
+                </div>
+                <div class="ctu-benefit">
+                    <div class="check">✓</div>
+                    <p>Pagos masivos interconectados</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SVG Esquema -->
+        <section class="svg-section">
+            <h2 class="svg-title">📊 Mapa Conceptual del Motor BS1</h2>
+            <div class="svg-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 950" width="100%" height="auto">
+                  <defs>
+                    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#C5A028"/>
+                      <stop offset="100%" style="stop-color:#D4AF37"/>
+                    </linearGradient>
+                    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#1A2E4A"/>
+                      <stop offset="100%" style="stop-color:#2A4A6A"/>
+                    </linearGradient>
+                    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#C41E3A"/>
+                      <stop offset="100%" style="stop-color:#E53E3E"/>
+                    </linearGradient>
+                    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.2"/>
+                    </filter>
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  
+                  <!-- Fondo -->
+                  <rect width="1200" height="950" fill="#F9F6EE"/>
+                  
+                  <!-- Barra superior -->
+                  <rect x="0" y="0" width="1200" height="6" fill="url(#goldGrad)"/>
+                  
+                  <!-- Título con MOTOR resaltado -->
+                  <text x="600" y="50" font-family="Georgia, serif" font-size="28" font-weight="bold" fill="#C5A028" text-anchor="middle" filter="url(#glow)">⚙️ MOTOR</text>
+                  <text x="600" y="85" font-family="Georgia, serif" font-size="52" font-weight="bold" fill="#1A2E4A" text-anchor="middle">BS1</text>
+                  <text x="600" y="115" font-family="Arial, sans-serif" font-size="18" fill="#666" text-anchor="middle">Bolívar Soberano Digital 2026</text>
+                  <text x="600" y="138" font-family="Arial, sans-serif" font-size="14" fill="#C41E3A" text-anchor="middle" font-weight="bold">De la Defensa a la Soberanía Financiera</text>
+                  
+                  <!-- Círculo Central - BS1 -->
+                  <circle cx="600" cy="340" r="100" fill="url(#goldGrad)" filter="url(#shadow)"/>
+                  <circle cx="600" cy="340" r="85" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="8,4"/>
+                  <text x="600" y="325" font-family="Georgia, serif" font-size="38" font-weight="bold" fill="#1A2E4A" text-anchor="middle">BS1</text>
+                  <text x="600" y="350" font-family="Arial, sans-serif" font-size="11" fill="#1A2E4A" text-anchor="middle">NÚCLEO TRANSACCIONAL</text>
+                  <text x="600" y="365" font-family="Arial, sans-serif" font-size="11" fill="#1A2E4A" text-anchor="middle">UNIVERSAL</text>
+                  
+                  <!-- Triángulo de Alianza -->
+                  <circle cx="600" cy="185" r="42" fill="url(#blueGrad)" filter="url(#shadow)"/>
+                  <text x="600" y="180" font-family="Georgia, serif" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">🏛️</text>
+                  <text x="600" y="198" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">BCV</text>
+                  
+                  <circle cx="485" cy="220" r="38" fill="#2D5A87" filter="url(#shadow)"/>
+                  <text x="485" y="215" font-family="Georgia, serif" font-size="14" fill="#fff" text-anchor="middle">🇻🇪</text>
+                  <text x="485" y="232" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">Sirumatek</text>
+                  
+                  <circle cx="715" cy="220" r="38" fill="#CC0000" filter="url(#shadow)"/>
+                  <text x="715" y="215" font-family="Georgia, serif" font-size="14" fill="#fff" text-anchor="middle">🇨🇳</text>
+                  <text x="715" y="232" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">Farben</text>
+                  
+                  <!-- Líneas de conexión al centro -->
+                  <line x1="600" y1="227" x2="600" y2="240" stroke="#C5A028" stroke-width="3"/>
+                  <line x1="518" y1="242" x2="540" y2="265" stroke="#C5A028" stroke-width="3"/>
+                  <line x1="682" y1="242" x2="660" y2="265" stroke="#C5A028" stroke-width="3"/>
+                  
+                  <!-- 3 Pilares -->
+                  <!-- Pilar 1: Resiliencia -->
+                  <g transform="translate(120, 300)">
+                    <rect x="0" y="0" width="230" height="210" rx="15" fill="#fff" filter="url(#shadow)"/>
+                    <rect x="0" y="0" width="230" height="50" rx="15" fill="url(#redGrad)"/>
+                    <rect x="0" y="35" width="230" height="15" fill="url(#redGrad)"/>
+                    <text x="115" y="32" font-family="Arial, sans-serif" font-size="26" text-anchor="middle">🛡️</text>
+                    <text x="115" y="75" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1A2E4A" text-anchor="middle">PILAR I</text>
+                    <text x="115" y="95" font-family="Arial, sans-serif" font-size="11" fill="#C41E3A" text-anchor="middle" font-weight="bold">Resiliencia Financiera</text>
+                    
+                    <text x="115" y="120" font-family="Arial, sans-serif" font-size="10" fill="#1A2E4A" text-anchor="middle" font-weight="bold">☁️ BS1 Nube</text>
+                    <text x="115" y="135" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">Disponibilidad para creación</text>
+                    <text x="115" y="147" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">de Fintechs</text>
+                    
+                    <text x="115" y="168" font-family="Arial, sans-serif" font-size="10" fill="#1A2E4A" text-anchor="middle" font-weight="bold">🧠 BS1 Analítica</text>
+                    <text x="115" y="183" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">Big Data e IA en tiempo real</text>
+                    
+                    <text x="115" y="200" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">🔧 BS1 Infraestructura</text>
+                  </g>
+                  
+                  <!-- Pilar 2: Soberanía -->
+                  <g transform="translate(850, 300)">
+                    <rect x="0" y="0" width="230" height="210" rx="15" fill="#fff" filter="url(#shadow)"/>
+                    <rect x="0" y="0" width="230" height="50" rx="15" fill="url(#goldGrad)"/>
+                    <rect x="0" y="35" width="230" height="15" fill="url(#goldGrad)"/>
+                    <text x="115" y="32" font-family="Arial, sans-serif" font-size="26" text-anchor="middle">🌉</text>
+                    <text x="115" y="75" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1A2E4A" text-anchor="middle">PILAR II</text>
+                    <text x="115" y="95" font-family="Arial, sans-serif" font-size="11" fill="#C5A028" text-anchor="middle" font-weight="bold">Soberanía Financiera</text>
+                    
+                    <text x="115" y="120" font-family="Arial, sans-serif" font-size="10" fill="#1A2E4A" text-anchor="middle" font-weight="bold">🌐 BS1 Pasarela Internacional</text>
+                    <text x="115" y="135" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">Pago transfronterizo vía CIPS</text>
+                    <text x="115" y="147" font-family="Arial, sans-serif" font-size="9" fill="#C41E3A" text-anchor="middle" font-weight="bold">Alternativo a SWIFT</text>
+                    
+                    <text x="115" y="168" font-family="Arial, sans-serif" font-size="10" fill="#1A2E4A" text-anchor="middle" font-weight="bold">💴 BS1 Puente Yuan Digital</text>
+                    <text x="115" y="183" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">Conexión con e-CNY</text>
+                    
+                    <text x="115" y="200" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">⚖️ BS1 Marco Legal</text>
+                  </g>
+                  
+                  <!-- Pilar 3: Inclusión -->
+                  <g transform="translate(485, 520)">
+                    <rect x="0" y="0" width="230" height="230" rx="15" fill="#fff" filter="url(#shadow)"/>
+                    <rect x="0" y="0" width="230" height="50" rx="15" fill="url(#blueGrad)"/>
+                    <rect x="0" y="35" width="230" height="15" fill="url(#blueGrad)"/>
+                    <text x="115" y="32" font-family="Arial, sans-serif" font-size="26" text-anchor="middle">👥</text>
+                    <text x="115" y="75" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1A2E4A" text-anchor="middle">PILAR III</text>
+                    <text x="115" y="95" font-family="Arial, sans-serif" font-size="11" fill="#1A2E4A" text-anchor="middle" font-weight="bold">Inclusión y Sostenibilidad</text>
+                    
+                    <text x="115" y="120" font-family="Arial, sans-serif" font-size="10" fill="#1A2E4A" text-anchor="middle" font-weight="bold">📱 BS1 Billetera</text>
+                    <text x="115" y="135" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">Servicios de pagos masivos</text>
+                    <text x="115" y="147" font-family="Arial, sans-serif" font-size="9" fill="#C5A028" text-anchor="middle" font-weight="bold">interconectados</text>
+                    
+                    <text x="115" y="170" font-family="Arial, sans-serif" font-size="10" fill="#1A2E4A" text-anchor="middle" font-weight="bold">🎓 BS1 Academia</text>
+                    <text x="115" y="185" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">Formación de talento clave:</text>
+                    <text x="115" y="197" font-family="Arial, sans-serif" font-size="9" fill="#C41E3A" text-anchor="middle" font-weight="bold">Ciberseguridad, Robótica, IA</text>
+                    <text x="115" y="209" font-family="Arial, sans-serif" font-size="8" fill="#666" text-anchor="middle">Reducir dependencia tecnológica</text>
+                    
+                    <text x="115" y="225" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">📜 BS1 Soberanía de Datos</text>
+                  </g>
+                  
+                  <!-- Líneas de conexión del centro a los pilares -->
+                  <line x1="500" y1="340" x2="350" y2="370" stroke="#C5A028" stroke-width="3" stroke-dasharray="5,3"/>
+                  <line x1="700" y1="340" x2="850" y2="370" stroke="#C5A028" stroke-width="3" stroke-dasharray="5,3"/>
+                  <line x1="600" y1="440" x2="600" y2="520" stroke="#C5A028" stroke-width="3" stroke-dasharray="5,3"/>
+                  
+                  <!-- Flujo CTU en la parte inferior -->
+                  <rect x="50" y="770" width="1100" height="120" rx="20" fill="url(#blueGrad)" filter="url(#shadow)"/>
+                  
+                  <text x="600" y="802" font-family="Georgia, serif" font-size="15" font-weight="bold" fill="#E8D48B" text-anchor="middle">⚙️ MOTOR BS1 — NÚCLEO TRANSACCIONAL UNIVERSAL (CTU)</text>
+                  <text x="600" y="822" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Billetera Universal con Pagos Masivos Interconectados</text>
+                  
+                  <!-- Iconos del flujo -->
+                  <g transform="translate(100, 835)">
+                    <circle cx="45" cy="25" r="24" fill="rgba(255,255,255,0.15)"/>
+                    <text x="45" y="23" font-family="Arial" font-size="20" text-anchor="middle">📱</text>
+                    <text x="45" y="42" font-family="Arial" font-size="8" fill="#fff" text-anchor="middle">Apps</text>
+                  </g>
+                  
+                  <text x="195" y="862" font-family="Arial" font-size="20" fill="#C5A028">→</text>
+                  
+                  <g transform="translate(240, 835)">
+                    <circle cx="45" cy="25" r="24" fill="rgba(255,255,255,0.15)"/>
+                    <text x="45" y="23" font-family="Arial" font-size="20" text-anchor="middle">🔌</text>
+                    <text x="45" y="42" font-family="Arial" font-size="8" fill="#fff" text-anchor="middle">Conexión</text>
+                  </g>
+                  
+                  <text x="335" y="862" font-family="Arial" font-size="20" fill="#C5A028">→</text>
+                  
+                  <g transform="translate(380, 835)">
+                    <circle cx="45" cy="25" r="24" fill="rgba(197,160,40,0.4)"/>
+                    <text x="45" y="23" font-family="Arial" font-size="20" text-anchor="middle">🏛️</text>
+                    <text x="45" y="42" font-family="Arial" font-size="8" fill="#fff" text-anchor="middle">CTU-BCV</text>
+                  </g>
+                  
+                  <text x="475" y="862" font-family="Arial" font-size="20" fill="#C5A028">→</text>
+                  
+                  <g transform="translate(520, 835)">
+                    <circle cx="45" cy="25" r="24" fill="rgba(255,255,255,0.15)"/>
+                    <text x="45" y="23" font-family="Arial" font-size="20" text-anchor="middle">🏦</text>
+                    <text x="45" y="42" font-family="Arial" font-size="8" fill="#fff" text-anchor="middle">Banca</text>
+                  </g>
+                  
+                  <text x="615" y="862" font-family="Arial" font-size="20" fill="#C5A028">→</text>
+                  
+                  <g transform="translate(660, 835)">
+                    <circle cx="45" cy="25" r="24" fill="rgba(255,255,255,0.15)"/>
+                    <text x="45" y="23" font-family="Arial" font-size="20" text-anchor="middle">🌐</text>
+                    <text x="45" y="42" font-family="Arial" font-size="8" fill="#fff" text-anchor="middle">CIPS</text>
+                  </g>
+                  
+                  <text x="755" y="862" font-family="Arial" font-size="20" fill="#C5A028">→</text>
+                  
+                  <g transform="translate(800, 835)">
+                    <circle cx="45" cy="25" r="24" fill="rgba(255,255,255,0.15)"/>
+                    <text x="45" y="23" font-family="Arial" font-size="20" text-anchor="middle">🔐</text>
+                    <text x="45" y="42" font-family="Arial" font-size="8" fill="#fff" text-anchor="middle">Seguridad</text>
+                  </g>
+                  
+                  <text x="895" y="862" font-family="Arial" font-size="20" fill="#C5A028">→</text>
+                  
+                  <g transform="translate(940, 835)">
+                    <circle cx="45" cy="25" r="24" fill="rgba(22,163,74,0.4)"/>
+                    <text x="45" y="23" font-family="Arial" font-size="20" text-anchor="middle">✅</text>
+                    <text x="45" y="42" font-family="Arial" font-size="8" fill="#fff" text-anchor="middle">Usuario</text>
+                  </g>
+                  
+                  <!-- Badges de beneficios clave -->
+                  <rect x="80" y="895" width="200" height="22" rx="11" fill="rgba(26,46,74,0.8)"/>
+                  <text x="180" y="910" font-family="Arial" font-size="9" fill="#fff" text-anchor="middle">✓ Un saldo, múltiples apps</text>
+                  
+                  <rect x="300" y="895" width="200" height="22" rx="11" fill="rgba(26,46,74,0.8)"/>
+                  <text x="400" y="910" font-family="Arial" font-size="9" fill="#fff" text-anchor="middle">✓ Sin custodia privada</text>
+                  
+                  <rect x="520" y="895" width="200" height="22" rx="11" fill="rgba(26,46,74,0.8)"/>
+                  <text x="620" y="910" font-family="Arial" font-size="9" fill="#fff" text-anchor="middle">✓ Trazabilidad total BCV</text>
+                  
+                  <rect x="740" y="895" width="200" height="22" rx="11" fill="rgba(26,46,74,0.8)"/>
+                  <text x="840" y="910" font-family="Arial" font-size="9" fill="#fff" text-anchor="middle">✓ Pagos masivos interconectados</text>
+                  
+                  <!-- Pie de página -->
+                  <text x="600" y="942" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">⚙️ Motor Bolívar Digital 2026 — Soberanía Tecnológica y Financiera para Venezuela</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><strong style="color: var(--gold); font-size: 1.5rem;">⚙️ MOTOR BS1</strong><br>
+            Bolívar Soberano Digital 2026<br>
+            <span style="color: #666;">Alianza BCV × Sirumatek × Farben</span></p>
+        </footer>
+    </div>
+</body>
+</html>
